@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "HiveMind-twitch-bridge"
+description = "Relay a Twitch channel's chat to and from a HiveMind hub"
+readme = "readme.md"
+authors = [{ name = "jarbasAI", email = "jarbasai@mailfence.com" }]
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+dynamic = ["version", "dependencies"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/JarbasHiveMind/HiveMind-twitch-bridge"
+
+[project.scripts]
+hivemind-twitch-bridge = "twitch_bridge.__main__:main"
+
+[tool.setuptools]
+packages = ["twitch_bridge"]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = { attr = "twitch_bridge.version.__version__" }
+dependencies = { file = ["requirements.txt"] }

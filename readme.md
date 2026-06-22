@@ -19,15 +19,16 @@ Twitch chat (IRC)  ⇄  HiveMind-twitch-bridge  ⇄  HiveMind hub  ⇄  OVOS ski
 
 ## Install
 
-This repo has no published package. Install the runtime dependency and run from a checkout:
+Install from a checkout:
 
 ```bash
 git clone https://github.com/JarbasHiveMind/HiveMind-twitch-bridge
 cd HiveMind-twitch-bridge
-pip install -r requirements.txt
+pip install .
 ```
 
-Dependency: `jarbas_hive_mind>=0.8.0` (pulls in `ovos_utils`).
+This installs the `hivemind-twitch-bridge` console entry point. Runtime
+dependencies: `hivemind-bus-client`, `ovos-bus-client`, `ovos-utils`.
 
 ## Quickstart
 
@@ -38,28 +39,22 @@ hivemind-core add-client --name twitch-bridge \
   --access-key "your-access-key" --password "your-password"
 ```
 
-**2. Configure the bridge.** The entry point is `connect_twitch_to_hivemind(...)` in `twitch_bridge/__main__.py`. Edit the call at the bottom of that file:
-
-```python
-from twitch_bridge.__main__ import connect_twitch_to_hivemind
-
-connect_twitch_to_hivemind(
-    channel="your_channel",                  # Twitch channel to join
-    oauth="oauth:your_chat_token",           # Twitch chat OAuth token
-    tags=["@bot", "@jarbas"],                # trigger tags
-    host="wss://127.0.0.1",                  # HiveMind hub host
-    port=5678,                               # HiveMind hub port
-    key="your-access-key",                   # HiveMind access key
-)
-```
-
-**3. Run it:**
+**2. Run it.** The bridge connects to the hub as a satellite and joins the
+Twitch channel:
 
 ```bash
-python -m twitch_bridge
+hivemind-twitch-bridge \
+  --channel your_channel \
+  --oauth oauth:your_chat_token \
+  --tag @bot --tag @jarbas \
+  --host wss://127.0.0.1 --port 5678 \
+  --access-key your-access-key --password your-password
 ```
 
-**4. Send a message.** In the channel's chat, include a trigger tag:
+You can also call `connect_twitch_to_hivemind(...)` from
+`twitch_bridge.__main__` directly in Python.
+
+**3. Send a message.** In the channel's chat, include a trigger tag:
 
 ```
 @bot what time is it?
@@ -69,17 +64,21 @@ The bridge strips the tag, forwards the message to the hub, and posts the reply 
 
 ## Configuration
 
-`connect_twitch_to_hivemind(...)` parameters:
+`hivemind-twitch-bridge` / `connect_twitch_to_hivemind(...)` options:
 
-| Parameter | Description | Default |
+| Option | Description | Default |
 | --- | --- | --- |
-| `channel` | Twitch channel name to join | — |
-| `oauth` | Twitch chat OAuth token (`oauth:...`) | — |
-| `tags` | Trigger tags; a chat message containing one is forwarded | `["@bot"]` |
-| `host` | HiveMind hub host (`wss://` / `ws://`) | `wss://127.0.0.1` |
-| `port` | HiveMind hub port | `5678` |
-| `key` | HiveMind access key | `dummy_key` |
-| `crypto_key` | Optional HiveMind payload crypto key | `None` |
+| `--channel` | Twitch channel name to join | — |
+| `--oauth` | Twitch chat OAuth token (`oauth:...`) | — |
+| `--tag` | Trigger tag (repeatable); a chat message containing one is forwarded | `@bot` |
+| `--nickname` | Twitch bot nickname | `bot` |
+| `--lang` | Utterance language | `en-us` |
+| `--host` | HiveMind hub host (`wss://` / `ws://`) | `wss://127.0.0.1` |
+| `--port` | HiveMind hub port | `5678` |
+| `--access-key` | HiveMind access key | `None` |
+| `--password` | HiveMind password | `None` |
+| `--crypto-key` | Optional HiveMind payload crypto key | `None` |
+| `--self-signed` | Accept self-signed SSL certificates | off |
 
 ## Troubleshooting
 
