@@ -1,39 +1,68 @@
+from hivemind_bus_client import HiveMessageBusClient
+from ovos_bus_client import Message
 from ovos_utils import create_daemon
-from jarbas_hive_mind.slave.terminal import HiveMindTerminalProtocol,\
-    HiveMindTerminal
 from ovos_utils.log import LOG
-from ovos_utils.messagebus import Message
+
 from twitch_bridge.twitch import Twitch
 
-platform = "JarbasTwitchBridgeV0.2"
+platform = "JarbasTwitchBridgeV0.3"
 
 
-class JarbasTwitchBridgeProtocol(HiveMindTerminalProtocol):
+class JarbasTwitchBridge:
+    """Relay a Twitch channel's chat to/from a HiveMind hub.
 
-    def onOpen(self):
-        super().onOpen()
-        LOG.info("Twitch Channel: {0}".format(self.factory.channel))
-        self.factory.start_twitch()
+    The bridge connects to a HiveMind hub as a satellite using
+    ``HiveMessageBusClient``. Twitch chat messages containing a trigger tag are
+    forwarded to the hub as ``recognizer_loop:utterance`` and the hub's spoken
+    reply is echoed back into the channel, addressed to the user that asked.
+    """
 
-    def onClose(self, wasClean, code, reason):
-        super().onClose(wasClean, code, reason)
-        self.factory.twitch.stop_listening()
-
-
-class JarbasTwitchBridge(HiveMindTerminal):
-    protocol = JarbasTwitchBridgeProtocol
-
-    def __init__(self, channel, oauth, tags=None, *args, **kwargs):
-        super(JarbasTwitchBridge, self).__init__(*args, **kwargs)
-        self.oauth = oauth
+    def __init__(self, channel, oauth, tags=None,
+                 access_key=None,
+                 host="wss://127.0.0.1",
+                 port=5678,
+                 password=None,
+                 crypto_key=None,
+                 self_signed=False,
+                 lang="en-us",
+                 nickname="bot",
+                 bus=None):
         self.channel = channel
+        self.oauth = oauth
         self.tags = tags or ["@bot"]
-        self.twitch = Twitch(self.channel, self.oauth)
+        self.lang = lang
+
+        self.twitch = Twitch(self.channel, self.oauth, nickname=nickname)
         self.twitch.on_message = self.on_twitch_message
 
-    def start_twitch(self):
+        if bus:
+            # got a connection already
+            self.bus = bus
+        else:
+            # connect to hivemind
+            self.bus = HiveMessageBusClient(access_key,
+                                            host=host,
+                                            port=port,
+                                            password=password,
+                                            crypto_key=crypto_key,
+                                            self_signed=self_signed,
+                                            useragent=platform)
+            self.bus.connect()
+
+        self.bus.on_mycroft("speak", self.handle_speak)
+        self.bus.on_mycroft("hive.complete_intent_failure",
+                            self.handle_complete_intent_failure)
+
+    def start(self):
+        """Start listening to the Twitch channel in a background daemon."""
+        LOG.info("Twitch Channel: {0}".format(self.channel))
         create_daemon(self.twitch.listen)
 
+    def stop(self):
+        """Stop listening to the Twitch channel."""
+        self.twitch.stop_listening()
+
+    # twitch -> hivemind
     def on_twitch_message(self, username, message):
         utterance = message.lower().strip()
         should_answer = False
@@ -41,32 +70,32 @@ class JarbasTwitchBridge(HiveMindTerminal):
             if tag.lower() in utterance:
                 should_answer = True
                 utterance = utterance.replace(tag.lower(), "")
-        if self.client and should_answer:
-            msg = {"data": {"utterances": [utterance], "lang": "en-us"},
-                   "type": "recognizer_loop:utterance",
-                   "context": {
-                       "source": self.client.peer,
-                       "destination": "hive_mind",
-                       "platform": platform,
-                       "user": {"twitch_username": username}}}
-            self.send_to_hivemind_bus(msg)
+        if should_answer:
+            utterance = utterance.strip()
+            LOG.debug("Twitch utterance from {0}: {1}".format(username,
+                                                              utterance))
+            self.bus.emit(Message("recognizer_loop:utterance",
+                                  {"utterances": [utterance],
+                                   "lang": self.lang},
+                                  {"destination": "HiveMind",
+                                   "platform": platform,
+                                   "user": {"twitch_username": username}}))
 
+    # hivemind -> twitch
     def speak(self, utterance, user_data):
         user = user_data["twitch_username"]
         utterance = "@{} , ".format(user) + utterance
         LOG.debug("Message: " + utterance)
         self.twitch.send_message(utterance)
 
-    def handle_incoming_mycroft(self, message):
-        assert isinstance(message, Message)
+    def handle_speak(self, message):
         user_data = message.context.get("user")
+        if user_data and "twitch_username" in user_data:
+            utterance = message.data["utterance"]
+            self.speak(utterance, user_data)
 
-        if user_data:
-            if message.msg_type == "speak":
-                utterance = message.data["utterance"]
-                self.speak(utterance, user_data)
-            elif message.msg_type == "hive.complete_intent_failure":
-                LOG.error("complete intent failure")
-                utterance = 'I don\'t know how to answer that'
-                self.speak(utterance, user_data)
-
+    def handle_complete_intent_failure(self, message):
+        user_data = message.context.get("user")
+        if user_data and "twitch_username" in user_data:
+            LOG.error("complete intent failure")
+            self.speak("I don't know how to answer that", user_data)
