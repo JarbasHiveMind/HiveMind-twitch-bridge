@@ -88,4 +88,6 @@ The bridge strips the tag, forwards the message to the hub, and posts the reply 
 
 ## Documentation
 
-See [`docs/`](docs/) for a full setup walkthrough, a configuration reference, and worked examples.
+- **[Operator setup](docs/operator-setup.md)** — getting the bot's Twitch account + chat OAuth token, registering the bridge on a HiveMind hub, the run command, and live-test env vars.
+
+See also [`docs/`](docs/) for a full setup walkthrough, a configuration reference, and worked examples.
