@@ -4,6 +4,9 @@ name: HiveMind E2E
 # drives the Twitch bridge end to end against it. The Twitch IRC side is mocked
 # explicitly in the test (no importorskip). The live-Twitch scaffold
 # (tests/e2e/test_twitch_live.py) skips here because no Twitch creds are set.
+#
+# The 2.x hivemind-core stack resolves from the prerelease floors in the [e2e]
+# extra (PEP 440) — no --pre, no custom pip steps, no git-branch pins.
 
 on:
   pull_request:
@@ -12,27 +15,8 @@ on:
 
 jobs:
   hivemind_e2e:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.11"
-
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update -q
-          sudo apt-get install -yq python3-dev libssl-dev
-
-      # ovos-bus-client 2.x is still prerelease; --pre lets pip accept the
-      # alpha hivemind-core stack that hivescope pulls (2.x migration).
-      - name: Install bridge + e2e harness (hivescope from loopback branch)
-        run: |
-          python -m pip install --upgrade pip
-          pip install --pre -e ".[e2e]"
-
-      - name: Run HiveMind e2e
-        run: |
-          pytest tests/e2e/ -v -p no:cacheprovider \
-            -W ignore::pytest.PytestUnraisableExceptionWarning
+    uses: OpenVoiceOS/gh-automations/.github/workflows/build-tests.yml@dev
+    with:
+      python_versions: '["3.10", "3.11", "3.12", "3.13"]'
+      install_extras: 'e2e'
+      test_path: 'tests/e2e/'
