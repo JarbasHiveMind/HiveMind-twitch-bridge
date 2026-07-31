@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.1a3](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.1a3) (2026-07-31)
+
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.1a2...0.0.1a3)
+
+**Merged pull requests:**
+
+- docs: rewrite README in Simplified Technical English [\#11](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/11) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [0.0.1a2](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.1a2) (2026-06-23)
 
 [Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/fc3cf689cad119e364b358d5c9d712492faaf15f...0.0.1a2)
