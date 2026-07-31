@@ -1,8 +1,8 @@
 # HiveMind Twitch Bridge
 
-Relay a [Twitch](https://twitch.tv) channel's chat to a [HiveMind](https://github.com/JarbasHiveMind/HiveMind-core) hub.
+This bridge relays a [Twitch](https://twitch.tv) channel's chat to a [HiveMind](https://github.com/JarbasHiveMind/HiveMind-core) hub.
 
-The bridge is a HiveMind **satellite** whose input and output are Twitch IRC chat instead of a microphone. Chat messages that carry a trigger tag become utterances sent to the hub; the hub's spoken reply is echoed back into the channel, addressed to the user. Any HiveMind hub (and the OVOS skills behind it) becomes a Twitch chat bot.
+The bridge is a HiveMind **satellite**. Its input and output are Twitch IRC chat instead of a microphone. A chat message that carries a trigger tag becomes an utterance sent to the hub. The hub's spoken reply is echoed back into the channel, addressed to the user. Any HiveMind hub, and the OVOS skills behind it, becomes a Twitch chat bot.
 
 ```
 Twitch chat (IRC)  ⇄  HiveMind-twitch-bridge  ⇄  HiveMind hub  ⇄  OVOS skills
@@ -27,8 +27,7 @@ cd HiveMind-twitch-bridge
 pip install .
 ```
 
-This installs the `hivemind-twitch-bridge` console entry point. Runtime
-dependencies: `hivemind-bus-client`, `ovos-bus-client`, `ovos-utils`.
+This installs the `hivemind-twitch-bridge` console entry point. Runtime dependencies: `hivemind-bus-client`, `ovos-bus-client`, `ovos-utils`.
 
 ## Quickstart
 
@@ -39,8 +38,7 @@ hivemind-core add-client --name twitch-bridge \
   --access-key "your-access-key" --password "your-password"
 ```
 
-**2. Run it.** The bridge connects to the hub as a satellite and joins the
-Twitch channel:
+**2. Run it.** The bridge connects to the hub as a satellite and joins the Twitch channel:
 
 ```bash
 hivemind-twitch-bridge \
@@ -51,8 +49,7 @@ hivemind-twitch-bridge \
   --access-key your-access-key --password your-password
 ```
 
-You can also call `connect_twitch_to_hivemind(...)` from
-`twitch_bridge.__main__` directly in Python.
+You can also call `connect_twitch_to_hivemind(...)` from `twitch_bridge.__main__` directly in Python.
 
 **3. Send a message.** In the channel's chat, include a trigger tag:
 
@@ -68,9 +65,9 @@ The bridge strips the tag, forwards the message to the hub, and posts the reply 
 
 | Option | Description | Default |
 | --- | --- | --- |
-| `--channel` | Twitch channel name to join | — |
-| `--oauth` | Twitch chat OAuth token (`oauth:...`) | — |
-| `--tag` | Trigger tag (repeatable); a chat message containing one is forwarded | `@bot` |
+| `--channel` | Twitch channel name to join | none |
+| `--oauth` | Twitch chat OAuth token (`oauth:...`) | none |
+| `--tag` | Trigger tag (repeatable). A chat message containing one is forwarded | `@bot` |
 | `--nickname` | Twitch bot nickname | `bot` |
 | `--lang` | Utterance language | `en-us` |
 | `--host` | HiveMind hub host (`wss://` / `ws://`) | `wss://127.0.0.1` |
@@ -80,14 +77,26 @@ The bridge strips the tag, forwards the message to the hub, and posts the reply 
 | `--crypto-key` | Optional HiveMind payload crypto key | `None` |
 | `--self-signed` | Accept self-signed SSL certificates | off |
 
+See [docs/configuration.md](docs/configuration.md) for the full parameter reference.
+
 ## Troubleshooting
 
-- **Bot never answers** — confirm the chat message contains a trigger tag; tags are matched case-insensitively and stripped before forwarding.
-- **Cannot connect to Twitch** — verify the OAuth token is current (regenerate at <https://twitchapps.com/tmi/>) and the channel name is spelled correctly.
-- **No reply posted** — confirm the hub is reachable and the access key is registered (`hivemind-core list-clients`), and that the hub produces a `speak` for the answer.
+- **Bot never answers**: confirm the chat message contains a trigger tag. Tags are matched case-insensitively and stripped before forwarding.
+- **Cannot connect to Twitch**: verify the OAuth token is current (regenerate at <https://twitchapps.com/tmi/>) and the channel name is spelled correctly.
+- **No reply posted**: confirm the hub is reachable and the access key is registered (`hivemind-core list-clients`), and that the hub produces a `speak` for the answer.
 
 ## Documentation
 
-- **[Operator setup](docs/operator-setup.md)** — getting the bot's Twitch account + chat OAuth token, registering the bridge on a HiveMind hub, the run command, and live-test env vars.
+- **[Setup walkthrough](docs/setup.md)**: from nothing to a working bot, step by step.
+- **[Operator setup](docs/operator-setup.md)**: getting the bot's Twitch account and chat OAuth token, registering the bridge on a HiveMind hub, the run command, security notes, and live-test environment variables.
+- **[Configuration reference](docs/configuration.md)**: every credential and parameter the bridge accepts.
+- **[Examples](docs/examples.md)**: a worked conversation and a standalone Twitch echo bot for testing credentials.
 
-See also [`docs/`](docs/) for a full setup walkthrough, a configuration reference, and worked examples.
+## Related projects
+
+- [HiveMind-core](https://github.com/JarbasHiveMind/HiveMind-core): the HiveMind hub this bridge connects to.
+- [hivemind-websocket-client](https://github.com/JarbasHiveMind/hivemind-websocket-client): the client library the bridge uses to talk to the hub.
+
+## License
+
+See [LICENSE](LICENSE).
