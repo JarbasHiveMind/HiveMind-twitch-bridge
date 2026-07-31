@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "HiveMind-twitch-bridge"
+description = "Relay a Twitch channel's chat to and from a HiveMind hub"
+readme = "readme.md"
+authors = [{ name = "jarbasAI", email = "jarbasai@mailfence.com" }]
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+dynamic = ["version", "dependencies"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+# e2e drives the bridge against a REAL hivemind-core hub booted in-process by
+# hivescope (loopback WebSocket). The prerelease floors below let a plain
+# `pip install -e .[e2e]` resolve the 2.x hivemind-core stack with no --pre
+# (PEP 440: a prerelease floor opts that package into prereleases).
+# hivescope>=0.5.1a1 carries the loopback + get_client_by_id fixes (hivescope#26).
+e2e = [
+    "pytest",
+    "hivescope>=0.5.1a1",
+    # The 2.x hivemind-core stack ships prerelease-only on these packages, and
+    # the shared build-tests workflow installs with a PLAIN `pip install` (no
+    # --pre). Per PEP 440 a prerelease floor opts pip into that package's
+    # prereleases, so flooring each prerelease-only transitive dep here lets a
+    # plain install resolve the whole 2.x stack with no --pre.
+    "hivemind-core>=4.6.7a1",
+    "hivemind-plugin-manager>=0.7.1a1",
+    "hivemind-websocket-protocol>=0.2.1a1",
+    "hivemind-sqlite-database>=0.4.0a2",
+    "hivemind-json-db-plugin>=0.0.3a2",
+    "hivemind-ovos-agent-plugin>=0.3.2a1",
+    "ovos-utils>=0.9.0a1",
+    "ovos-config>=2.1.4a5",
+    "json-database>=1.0.2a1",
+]
+
+[project.urls]
+Homepage = "https://github.com/JarbasHiveMind/HiveMind-twitch-bridge"
+
+[project.scripts]
+hivemind-twitch-bridge = "twitch_bridge.__main__:main"
+
+[tool.setuptools]
+packages = ["twitch_bridge"]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = { attr = "twitch_bridge.version.__version__" }
+dependencies = { file = ["requirements.txt"] }
