@@ -7,6 +7,8 @@ from twitch_bridge.twitch import Twitch
 
 platform = "JarbasTwitchBridgeV0.3"
 
+DEFAULT_HANDSHAKE_MAX_RETRIES = 10
+
 
 class JarbasTwitchBridge:
     """Relay a Twitch channel's chat to/from a HiveMind hub.
@@ -26,11 +28,13 @@ class JarbasTwitchBridge:
                  self_signed=False,
                  lang="en-us",
                  nickname="bot",
-                 bus=None):
+                 bus=None,
+                 handshake_max_retries=DEFAULT_HANDSHAKE_MAX_RETRIES):
         self.channel = channel
         self.oauth = oauth
         self.tags = tags or ["@bot"]
         self.lang = lang
+        self.handshake_max_retries = handshake_max_retries
 
         self.twitch = Twitch(self.channel, self.oauth, nickname=nickname)
         self.twitch.on_message = self.on_twitch_message
@@ -47,7 +51,7 @@ class JarbasTwitchBridge:
                                             crypto_key=crypto_key,
                                             self_signed=self_signed,
                                             useragent=platform)
-            self.bus.connect()
+            self.bus.connect(handshake_max_retries=self.handshake_max_retries)
 
         self.bus.on_mycroft("speak", self.handle_speak)
         self.bus.on_mycroft("hive.complete_intent_failure",

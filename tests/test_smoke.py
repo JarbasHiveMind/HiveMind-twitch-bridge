@@ -1,4 +1,4 @@
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 
 def test_version():
@@ -35,6 +35,25 @@ def test_construct_without_connecting():
     assert bridge.twitch.channel == "testchannel"
     assert bridge.twitch._connected is False
     assert bridge.twitch._running is False
+
+
+def test_connect_uses_bounded_handshake_retries():
+    """connect() must never be called with an unbounded (None) retry count,
+    otherwise a stalled/unreachable hub hangs the bridge forever."""
+    from twitch_bridge import JarbasTwitchBridge, DEFAULT_HANDSHAKE_MAX_RETRIES
+
+    with patch("twitch_bridge.HiveMessageBusClient") as mock_client_cls:
+        mock_client = MagicMock()
+        mock_client_cls.return_value = mock_client
+
+        bridge = JarbasTwitchBridge(channel="c", oauth="oauth:dummy",
+                                    tags=["@bot"])
+
+        mock_client.connect.assert_called_once()
+        _, kwargs = mock_client.connect.call_args
+        assert kwargs.get("handshake_max_retries") is not None
+        assert kwargs.get("handshake_max_retries") == DEFAULT_HANDSHAKE_MAX_RETRIES
+        assert bridge.handshake_max_retries == DEFAULT_HANDSHAKE_MAX_RETRIES
 
 
 def test_tagged_message_forwarded_to_hivemind():
