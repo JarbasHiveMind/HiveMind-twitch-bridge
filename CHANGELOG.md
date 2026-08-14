@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3a1](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a1) (2026-08-14)
+
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.2a1...0.0.3a1)
+
+**Merged pull requests:**
+
+- fix: bound handshake\_max\_retries in connect\(\) to avoid unbounded hang [\#18](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/18) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [0.0.2a1](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.2a1) (2026-08-14)
 
 [Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.1a3...0.0.2a1)
