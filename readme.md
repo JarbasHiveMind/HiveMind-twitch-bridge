@@ -83,7 +83,9 @@ See [docs/configuration.md](docs/configuration.md) for the full parameter refere
 
 - **Bot never answers**: confirm the chat message contains a trigger tag. Tags are matched case-insensitively and stripped before forwarding.
 - **Cannot connect to Twitch**: verify the OAuth token is current (regenerate at <https://twitchapps.com/tmi/>) and the channel name is spelled correctly.
-- **No reply posted**: confirm the hub is reachable and the access key is registered (`hivemind-core list-clients`), and that the hub produces a `speak` for the answer.
+- **No reply posted**: confirm the hub is reachable and the access key is registered (`hivemind-core list-clients`), and that the hub produces a `speak` for the answer. The single most common cause is a missing `allow-msg` whitelist — a freshly added client is denied every message type by default; see [operator-setup.md](docs/operator-setup.md#whitelist-the-messages-the-bridge-sends).
+- **"invalid api key" on connect**: the bridge's `hivemind-bus-client` is too old for the hub's protocol version. Update it (`pip install -U hivemind-bus-client`).
+- **Hub rejects the connection after it was reinstalled or its identity changed**: the client pins the hub's Noise public key on first connect and refuses a hub presenting a different one. Run `hivemind-client reset-noise-pin` and reconnect.
 
 ## Documentation
 

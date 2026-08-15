@@ -49,6 +49,22 @@ Note the **access key**, **password**, and the hub **host** and **port**
 (default WebSocket port `5678`). The bridge connects as a HiveMind *satellite*
 with these values.
 
+`add-client` also prints a **Node ID**. Keep it — you need it for the next
+step.
+
+### Whitelist the messages the bridge sends
+
+A freshly added HiveMind client is denied every message type by default.
+This is the step people miss, and it fails silently: the bridge connects to
+the hub without any error, chat messages get forwarded, but no reply ever
+comes back. Whitelist what the bridge needs:
+
+```bash
+# replace 3 with the Node ID printed by add-client
+hivemind-core allow-msg recognizer_loop:utterance 3
+hivemind-core allow-msg speak 3
+```
+
 ## 4. Install and run the bridge
 
 ```bash
