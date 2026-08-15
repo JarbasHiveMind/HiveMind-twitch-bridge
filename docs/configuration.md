@@ -1,6 +1,8 @@
-# Configuration & Credentials Reference
+# Configuration and Credentials Reference
 
-The bridge needs Twitch chat credentials and a HiveMind access key. Both are passed as arguments to `connect_twitch_to_hivemind(...)` in `twitch_bridge/__main__.py`.
+The bridge needs Twitch chat credentials and a HiveMind access key. Both are
+passed as arguments to `connect_twitch_to_hivemind(...)` in
+`twitch_bridge/__main__.py`.
 
 ## Twitch credentials
 
@@ -8,9 +10,10 @@ The bridge needs Twitch chat credentials and a HiveMind access key. Both are pas
 | --- | --- |
 | `channel` | The Twitch channel name whose chat the bot joins. |
 | `oauth` | A Twitch chat OAuth token (`oauth:...`), generated at <https://twitchapps.com/tmi/>. |
-| `tags` | List of trigger tags. A chat message containing any tag (matched case-insensitively) is forwarded; the tag is stripped first. Default `["@bot"]`. |
+| `tags` | List of trigger tags. A chat message that contains any tag (matched case-insensitively) is forwarded. The tag is stripped first. Default `["@bot"]`. |
 
-The bot connects to Twitch IRC at `irc.twitch.tv:6667` and authenticates with the token.
+The bot connects to Twitch IRC at `irc.twitch.tv:6667` and authenticates with
+the token.
 
 ## HiveMind credentials
 
@@ -24,12 +27,19 @@ The bot connects to Twitch IRC at `irc.twitch.tv:6667` and authenticates with th
 
 ## Reply routing
 
-When the bridge forwards a message it tags the HiveMind context with `user.twitch_username`. The hub echoes it on the `speak` reply, and the bridge posts the answer to the channel prefixed with `@username`.
+When the bridge forwards a message it tags the HiveMind context with
+`user.twitch_username`. The hub echoes it on the `speak` reply, and the bridge
+posts the answer to the channel prefixed with `@username`.
 
-The bridge also handles `hive.complete_intent_failure` from the hub, replying with a fixed "I don't know how to answer that" message.
+The bridge also handles `hive.complete_intent_failure` from the hub, replying
+with a fixed "I don't know how to answer that" message.
 
 ## Trigger and dispatch flow
 
 1. A chat line arrives over IRC.
-2. The message is lowercased; if it contains a trigger tag the tag is removed and the remainder is forwarded.
-3. Messages without a trigger tag are ignored.
+2. The message is lowercased. If it contains a trigger tag, the bridge removes
+   the tag and forwards the remainder.
+3. The bridge ignores messages without a trigger tag.
+
+---
+[← Operator setup](operator-setup.md) · [Home](../readme.md) · [Examples →](examples.md)
