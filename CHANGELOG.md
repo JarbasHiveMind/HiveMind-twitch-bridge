@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3a2](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a2) (2026-08-15)
+
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a1...0.0.3a2)
+
+**Merged pull requests:**
+
+- docs: add AGENTS.md with per-repo agent conventions [\#20](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/20) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [0.0.3a1](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a1) (2026-08-14)
 
 [Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.2a1...0.0.3a1)
