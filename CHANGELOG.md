@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3a4](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a4) (2026-08-15)
+
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a3...0.0.3a4)
+
+**Merged pull requests:**
+
+- docs: fill the allow-msg whitelist gap [\#13](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/13) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [0.0.3a3](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a3) (2026-08-15)
 
 [Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a2...0.0.3a3)
@@ -7,6 +15,7 @@
 **Merged pull requests:**
 
 - ci: test, build and publish the container image [\#16](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/16) ([JarbasAl](https://github.com/JarbasAl))
+- Add Dockerfile [\#14](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/14) ([JarbasAl](https://github.com/JarbasAl))
 
 ## [0.0.3a2](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a2) (2026-08-15)
 
