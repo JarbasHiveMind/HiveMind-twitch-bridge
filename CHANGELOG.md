@@ -1,21 +1,29 @@
 # Changelog
 
+## [0.0.4a1](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.4a1) (2026-09-01)
+
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a8...0.0.4a1)
+
+**Merged pull requests:**
+
+- fix\(deps\): raise floor pins to the proven HiveMind stack; drop stale caps [\#35](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/35) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [0.0.3a8](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a8) (2026-08-15)
 
-[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a7...0.0.3a8)
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a6...0.0.3a8)
 
 **Merged pull requests:**
 
 - Update docker/login-action action to v4 [\#28](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/28) ([renovate[bot]](https://github.com/apps/renovate))
 - Update docker/build-push-action action to v7 [\#27](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/27) ([renovate[bot]](https://github.com/apps/renovate))
 
-## [0.0.3a7](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a7) (2026-08-15)
-
-[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a6...0.0.3a7)
-
 ## [0.0.3a6](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a6) (2026-08-15)
 
-[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a5...0.0.3a6)
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a7...0.0.3a6)
+
+## [0.0.3a7](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a7) (2026-08-15)
+
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a5...0.0.3a7)
 
 **Merged pull requests:**
 
