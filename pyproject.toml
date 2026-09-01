@@ -17,24 +17,24 @@ test = ["pytest"]
 # hivescope (loopback WebSocket). The prerelease floors below let a plain
 # `pip install -e .[e2e]` resolve the 2.x hivemind-core stack with no --pre
 # (PEP 440: a prerelease floor opts that package into prereleases).
-# hivescope>=0.5.1a1 carries the loopback + get_client_by_id fixes (hivescope#26).
+# hivescope>=0.8.0a1 carries the loopback + get_client_by_id fixes (hivescope#26).
 e2e = [
     "pytest",
-    "hivescope>=0.5.1a1",
+    "hivescope>=0.8.0a1",
     # The 2.x hivemind-core stack ships prerelease-only on these packages, and
     # the shared build-tests workflow installs with a PLAIN `pip install` (no
     # --pre). Per PEP 440 a prerelease floor opts pip into that package's
     # prereleases, so flooring each prerelease-only transitive dep here lets a
     # plain install resolve the whole 2.x stack with no --pre.
-    "hivemind-core>=4.6.7a1",
-    "hivemind-plugin-manager>=0.7.1a1",
-    "hivemind-websocket-protocol>=0.2.1a1",
-    "hivemind-sqlite-database>=0.4.0a2",
-    "hivemind-json-db-plugin>=0.0.3a2",
-    "hivemind-ovos-agent-plugin>=0.3.2a1",
-    "ovos-utils>=0.9.0a1",
-    "ovos-config>=2.1.4a5",
-    "json-database>=1.0.2a1",
+    "hivemind-core>=4.13.18a1",
+    "hivemind-plugin-manager>=0.9.0a7",
+    "hivemind-websocket-protocol>=0.2.9a1",
+    "hivemind-sqlite-database>=0.4.3a5",
+    "hivemind-json-db-plugin>=0.0.4a7",
+    "hivemind-ovos-agent-plugin>=0.3.10a1",
+    "ovos-utils>=0.13.15a1",
+    "ovos-config>=3.0.1a1",
+    "json-database>=1.0.4a1",
 ]
 
 [project.urls]
