@@ -17,6 +17,10 @@ class JarbasTwitchBridge:
     ``HiveMessageBusClient``. Twitch chat messages containing a trigger tag are
     forwarded to the hub as ``recognizer_loop:utterance`` and the hub's spoken
     reply is echoed back into the channel, addressed to the user that asked.
+
+    ``access_key`` + ``password`` are the credentials: a v3-Noise-only hub
+    derives its Noise PSK from ``password``, and there is no ``crypto_key``
+    fallback -- that legacy kwarg is a server-side no-op.
     """
 
     def __init__(self, channel, oauth, tags=None,
@@ -24,7 +28,6 @@ class JarbasTwitchBridge:
                  host="wss://127.0.0.1",
                  port=5678,
                  password=None,
-                 crypto_key=None,
                  self_signed=False,
                  lang="en-us",
                  nickname="bot",
@@ -48,7 +51,6 @@ class JarbasTwitchBridge:
                                             host=host,
                                             port=port,
                                             password=password,
-                                            crypto_key=crypto_key,
                                             self_signed=self_signed,
                                             useragent=platform)
             self.bus.connect(handshake_max_retries=self.handshake_max_retries)
