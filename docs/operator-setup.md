@@ -90,9 +90,8 @@ Useful flags (verify with `hivemind-twitch-bridge --help`):
 | `--nickname` | bot nickname to connect as | `bot` |
 | `--tag` | trigger tag, repeatable | `@bot` |
 | `--lang` | utterance language | `en-us` |
-| `--access-key` / `--password` | HiveMind credentials | `None` |
+| `--access-key` / `--password` | HiveMind credentials (`--password` is the Noise PSK for a v3-Noise hub) | `None` |
 | `--host` / `--port` | HiveMind hub (`ws://`/`wss://`) | `wss://127.0.0.1` / `5678` |
-| `--crypto-key` | optional payload crypto key | `None` |
 | `--self-signed` | accept self-signed TLS | off |
 
 ## 5. Talk to it

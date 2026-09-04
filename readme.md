@@ -73,8 +73,7 @@ The bridge strips the tag, forwards the message to the hub, and posts the reply 
 | `--host` | HiveMind hub host (`wss://` / `ws://`) | `wss://127.0.0.1` |
 | `--port` | HiveMind hub port | `5678` |
 | `--access-key` | HiveMind access key | `None` |
-| `--password` | HiveMind password | `None` |
-| `--crypto-key` | Optional HiveMind payload crypto key | `None` |
+| `--password` | HiveMind password (the Noise PSK for a v3-Noise hub; required alongside `--access-key`) | `None` |
 | `--self-signed` | Accept self-signed SSL certificates | off |
 
 See [docs/configuration.md](docs/configuration.md) for the full parameter reference.

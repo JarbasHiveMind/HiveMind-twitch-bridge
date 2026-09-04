@@ -9,7 +9,6 @@ def connect_twitch_to_hivemind(channel, oauth, tags=None,
                                host="wss://127.0.0.1",
                                port=5678,
                                password=None,
-                               crypto_key=None,
                                self_signed=False,
                                lang="en-us",
                                nickname="bot",
@@ -22,7 +21,6 @@ def connect_twitch_to_hivemind(channel, oauth, tags=None,
                                 host=host,
                                 port=port,
                                 password=password,
-                                crypto_key=crypto_key,
                                 self_signed=self_signed,
                                 lang=lang,
                                 nickname=nickname,
@@ -46,9 +44,9 @@ def main():
     parser.add_argument("--lang", default="en-us", help="utterance language")
     # hivemind connection
     parser.add_argument("--access-key", help="HiveMind access key")
-    parser.add_argument("--password", default=None, help="HiveMind password")
-    parser.add_argument("--crypto-key", default=None,
-                        help="HiveMind payload crypto key")
+    parser.add_argument("--password", default=None,
+                        help="HiveMind password (the Noise PSK for a "
+                             "v3-Noise hub; required alongside --access-key)")
     parser.add_argument("--host", default="wss://127.0.0.1",
                         help="HiveMind host (ws:// or wss://)")
     parser.add_argument("--port", type=int, default=5678,
@@ -69,7 +67,6 @@ def main():
                                host=args.host,
                                port=args.port,
                                password=args.password,
-                               crypto_key=args.crypto_key,
                                self_signed=args.self_signed,
                                lang=args.lang,
                                nickname=args.nickname)

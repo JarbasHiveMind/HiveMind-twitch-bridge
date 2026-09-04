@@ -22,7 +22,7 @@ the token.
 | `host` | HiveMind hub host (`wss://` or `ws://`). | `wss://127.0.0.1` |
 | `port` | HiveMind hub port. | `5678` |
 | `key` | HiveMind access key from `hivemind-core add-client`. | `dummy_key` |
-| `crypto_key` | Optional pre-shared payload crypto key. | `None` |
+| `password` | HiveMind password (the Noise PSK for a v3-Noise hub; required alongside `key`). | `None` |
 | `name` | Terminal name reported to the hub. | `JarbasTwitchBridge` |
 
 ## Reply routing

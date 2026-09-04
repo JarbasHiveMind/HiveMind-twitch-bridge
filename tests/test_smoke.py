@@ -1,4 +1,7 @@
+import sys
 from unittest.mock import MagicMock, patch
+
+import pytest
 
 
 def test_version():
@@ -74,6 +77,40 @@ def test_tagged_message_forwarded_to_hivemind():
     fake_bus.emit.reset_mock()
     bridge.on_twitch_message("bob", "no tag here")
     assert not fake_bus.emit.called
+
+
+def test_cli_no_longer_accepts_crypto_key():
+    """The legacy crypto_key is a server-side no-op against a v3-Noise hub;
+    --crypto-key must not be an accepted CLI option any more."""
+    from twitch_bridge.__main__ import main
+
+    class _StopLoop(Exception):
+        """Breaks out of main()'s infinite relay loop once reached."""
+
+    argv = ["prog", "--channel", "c", "--oauth", "oauth:dummy",
+            "--crypto-key", "somekey"]
+    with patch.object(sys, "argv", argv), \
+         patch("twitch_bridge.__main__.connect_twitch_to_hivemind") as mock_connect, \
+         patch("twitch_bridge.__main__.time.sleep", side_effect=_StopLoop):
+        try:
+            main()
+        except SystemExit:
+            pass  # expected: argparse rejects the unknown --crypto-key option
+        except _StopLoop:
+            pytest.fail("--crypto-key was accepted by the CLI")
+        mock_connect.assert_not_called()
+
+
+def test_crypto_key_not_forwarded_to_hivemind_client():
+    """connect_twitch_to_hivemind must never pass crypto_key to the client."""
+    from twitch_bridge import JarbasTwitchBridge
+
+    with patch("twitch_bridge.HiveMessageBusClient") as mock_client_cls:
+        mock_client_cls.return_value = MagicMock()
+        JarbasTwitchBridge(channel="c", oauth="oauth:dummy",
+                           tags=["@bot"], password="pw")
+        _, kwargs = mock_client_cls.call_args
+        assert "crypto_key" not in kwargs
 
 
 def test_speak_routed_back_to_twitch():
