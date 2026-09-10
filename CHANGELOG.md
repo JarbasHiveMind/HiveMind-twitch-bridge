@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.5a2](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.5a2) (2026-09-10)
+
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.5a1...0.0.5a2)
+
+**Merged pull requests:**
+
+- Update docker/metadata-action action to v6 [\#32](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/32) ([renovate[bot]](https://github.com/apps/renovate))
+
 ## [0.0.5a1](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.5a1) (2026-09-04)
 
 [Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.4a1...0.0.5a1)
@@ -31,20 +39,20 @@
 
 ## [0.0.3a6](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a6) (2026-08-15)
 
-[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a5...0.0.3a6)
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a4...0.0.3a6)
 
 **Merged pull requests:**
 
 - Update actions/checkout action to v7 [\#23](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/23) ([renovate[bot]](https://github.com/apps/renovate))
 - Update python Docker tag to v3.14 [\#22](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/22) ([renovate[bot]](https://github.com/apps/renovate))
 
-## [0.0.3a5](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a5) (2026-08-15)
-
-[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a4...0.0.3a5)
-
 ## [0.0.3a4](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a4) (2026-08-15)
 
-[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a3...0.0.3a4)
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a5...0.0.3a4)
+
+## [0.0.3a5](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a5) (2026-08-15)
+
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a3...0.0.3a5)
 
 **Merged pull requests:**
 
