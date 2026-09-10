@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.5a3](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.5a3) (2026-09-10)
+
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.5a2...0.0.5a3)
+
+**Merged pull requests:**
+
+- Update docker/setup-buildx-action action to v4 [\#33](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/33) ([renovate[bot]](https://github.com/apps/renovate))
+
 ## [0.0.5a2](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.5a2) (2026-09-10)
 
 [Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.5a1...0.0.5a2)
