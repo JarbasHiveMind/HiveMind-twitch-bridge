@@ -85,7 +85,8 @@ class JarbasTwitchBridge:
                                    "lang": self.lang},
                                   {"destination": "HiveMind",
                                    "platform": platform,
-                                   "user": {"twitch_username": username}}))
+                                   "user": {"twitch_username": username},
+                                   "session": {"session_id": f"twitch-{username}"}}))
 
     # hivemind -> twitch
     def speak(self, utterance, user_data):

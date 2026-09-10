@@ -134,3 +134,27 @@ def test_speak_routed_back_to_twitch():
     bridge.twitch.send_message.reset_mock()
     bridge.handle_speak(Message("speak", {"utterance": "ignored"}, {}))
     bridge.twitch.send_message.assert_not_called()
+
+
+def test_utterance_carries_per_user_session():
+    """Two different Twitch users must map to two distinct Layer-1 sessions
+    (HIVEMIND-BRIDGE-1 §4) rather than sharing one collapsed session."""
+    from twitch_bridge import JarbasTwitchBridge
+
+    fake_bus = MagicMock()
+    bridge = JarbasTwitchBridge(channel="c", oauth="oauth:dummy",
+                                tags=["@bot"], bus=fake_bus)
+
+    bridge.on_twitch_message("alice", "@bot hello")
+    bridge.on_twitch_message("bob", "@bot hi")
+
+    emitted = [c.args[0] for c in fake_bus.emit.call_args_list
+              if c.args[0].msg_type == "recognizer_loop:utterance"]
+    assert len(emitted) == 2
+
+    alice_session = emitted[0].context["session"]["session_id"]
+    bob_session = emitted[1].context["session"]["session_id"]
+
+    assert alice_session == "twitch-alice"
+    assert bob_session == "twitch-bob"
+    assert alice_session != bob_session
