@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.5a4](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.5a4) (2026-09-10)
+
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.5a3...0.0.5a4)
+
+**Merged pull requests:**
+
+- Update docker/setup-qemu-action action to v4 [\#34](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/34) ([renovate[bot]](https://github.com/apps/renovate))
+
 ## [0.0.5a3](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.5a3) (2026-09-10)
 
 [Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.5a2...0.0.5a3)
@@ -47,20 +55,20 @@
 
 ## [0.0.3a6](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a6) (2026-08-15)
 
-[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a4...0.0.3a6)
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a5...0.0.3a6)
 
 **Merged pull requests:**
 
 - Update actions/checkout action to v7 [\#23](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/23) ([renovate[bot]](https://github.com/apps/renovate))
 - Update python Docker tag to v3.14 [\#22](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/22) ([renovate[bot]](https://github.com/apps/renovate))
 
-## [0.0.3a4](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a4) (2026-08-15)
-
-[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a5...0.0.3a4)
-
 ## [0.0.3a5](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a5) (2026-08-15)
 
-[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a3...0.0.3a5)
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a4...0.0.3a5)
+
+## [0.0.3a4](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.3a4) (2026-08-15)
+
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.3a3...0.0.3a4)
 
 **Merged pull requests:**
 
