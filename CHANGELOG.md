@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.6a1](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.6a1) (2026-09-10)
+
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.5a4...0.0.6a1)
+
+**Merged pull requests:**
+
+- fix: declare a session per user so conversations do not share state [\#39](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/39) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [0.0.5a4](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.5a4) (2026-09-10)
 
 [Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.5a3...0.0.5a4)
