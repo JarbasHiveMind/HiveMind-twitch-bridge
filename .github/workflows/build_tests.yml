@@ -11,5 +11,10 @@ jobs:
     with:
       python_versions: '["3.10", "3.11", "3.12", "3.13"]'
       install_extras: 'test'
-      # offline unit/smoke tests only; the e2e harness runs in e2e_tests.yml
-      test_path: 'tests/test_smoke.py'
+      # Every test under tests/ EXCEPT tests/e2e, which is the directory and not
+      # one named file: a file value collects that file alone, so a test file
+      # added later reaches pytest in no workflow while the build_tests check
+      # still reads green. tests/e2e stays out because it boots a real
+      # hivemind-core hub through hivescope; e2e_tests.yml owns it, which is why
+      # the heavy stack installs there and not in every matrix cell.
+      test_path: 'tests/ --ignore=tests/e2e'
