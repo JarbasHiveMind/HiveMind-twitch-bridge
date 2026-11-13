@@ -11,5 +11,6 @@ jobs:
     with:
       python_versions: '["3.10", "3.11", "3.12", "3.13"]'
       install_extras: 'test'
-      # offline unit/smoke tests only; the e2e harness runs in e2e_tests.yml
-      test_path: 'tests/test_smoke.py'
+      # offline tests only, all of tests/ less tests/e2e; the e2e harness runs
+      # in e2e_tests.yml
+      test_path: 'tests/ --ignore=tests/e2e'
