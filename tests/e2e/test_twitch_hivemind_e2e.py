@@ -33,6 +33,7 @@ import threading
 import time
 
 import pytest
+from json_database import JsonStorage
 from ovos_bus_client.message import Message
 
 from hivemind_bus_client.client import HiveMessageBusClient
@@ -51,7 +52,7 @@ def _extract_host_port(url: str):
     return parts[0], int(parts[1])
 
 
-def _make_client(url: str, key: str, password: str,
+def _make_client(tmp_path, url: str, key: str, password: str,
                  name: str = "twitch-bridge") -> HiveMessageBusClient:
     """A REAL HiveMessageBusClient pointed at the loopback hub.
 
@@ -61,7 +62,7 @@ def _make_client(url: str, key: str, password: str,
     ephemeral loopback port and inject it via ``bus=``.
     """
     host, port = _extract_host_port(url)
-    identity = NodeIdentity()
+    identity = NodeIdentity(identity_file=JsonStorage(str(tmp_path / f"{name}.json")))
     identity.access_key = key
     identity.password = password
     identity.default_master = f"ws://{host}"
@@ -137,7 +138,7 @@ def _setup_twitch_responder_agent(master, answer: str = "it is sunny"):
 # --------------------------------------------------------------------------- #
 # the e2e test
 # --------------------------------------------------------------------------- #
-def test_twitch_roundtrip_through_real_hivemind_hub():
+def test_twitch_roundtrip_through_real_hivemind_hub(tmp_path):
     """Full inbound-chat -> hub -> outbound-chat round-trip over a real hub."""
     key, password = "twitch-e2e-key", "twitch-e2e-pwd"
     channel, asking_user = "mychannel", "alice"
@@ -153,7 +154,7 @@ def test_twitch_roundtrip_through_real_hivemind_hub():
     client = None
     try:
         # --- REAL bus client -> the live hub -------------------------------
-        client = _make_client(m.network_protocol.url, key, password)
+        client = _make_client(tmp_path, m.network_protocol.url, key, password)
         client.connect(site_id="twitch-e2e-site")
         client.wait_for_handshake(timeout=10)
         assert client.handshake_event.is_set(), "handshake did not complete"
@@ -227,7 +228,7 @@ def test_twitch_roundtrip_through_real_hivemind_hub():
         b.stop_all()
 
 
-def test_untagged_chat_does_not_reach_hub():
+def test_untagged_chat_does_not_reach_hub(tmp_path):
     """A chat line without the trigger tag must NOT be forwarded to the hub."""
     key, password = "twitch-e2e-key2", "twitch-e2e-pwd2"
 
@@ -240,7 +241,7 @@ def test_untagged_chat_does_not_reach_hub():
     bridge = None
     client = None
     try:
-        client = _make_client(m.network_protocol.url, key, password)
+        client = _make_client(tmp_path, m.network_protocol.url, key, password)
         client.connect(site_id="twitch-e2e-site2")
         client.wait_for_handshake(timeout=10)
 
