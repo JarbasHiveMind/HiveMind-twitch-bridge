@@ -1,4 +1,5 @@
 from hivemind_bus_client import HiveMessageBusClient
+from hivemind_bus_client.identity import NodeIdentity
 from ovos_bus_client import Message
 from ovos_utils import create_daemon
 from ovos_utils.log import LOG
@@ -32,7 +33,8 @@ class JarbasTwitchBridge:
                  lang="en-us",
                  nickname="bot",
                  bus=None,
-                 handshake_max_retries=DEFAULT_HANDSHAKE_MAX_RETRIES):
+                 handshake_max_retries=DEFAULT_HANDSHAKE_MAX_RETRIES,
+                 identity=None):
         self.channel = channel
         self.oauth = oauth
         self.tags = tags or ["@bot"]
@@ -52,7 +54,8 @@ class JarbasTwitchBridge:
                                             port=port,
                                             password=password,
                                             self_signed=self_signed,
-                                            useragent=platform)
+                                            useragent=platform,
+                                            identity=identity or NodeIdentity(app_name="twitch-bridge"))
             self.bus.connect(handshake_max_retries=self.handshake_max_retries)
 
         self.bus.on_mycroft("speak", self.handle_speak)
