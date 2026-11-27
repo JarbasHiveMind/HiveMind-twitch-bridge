@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.7a1](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.7a1) (2026-11-27)
+
+[Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.6a2...0.0.7a1)
+
+**Merged pull requests:**
+
+- fix: the bridge connects with its own twitch-bridge identity [\#48](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/pull/48) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [0.0.6a2](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/tree/0.0.6a2) (2026-11-13)
 
 [Full Changelog](https://github.com/JarbasHiveMind/HiveMind-twitch-bridge/compare/0.0.6a1...0.0.6a2)
