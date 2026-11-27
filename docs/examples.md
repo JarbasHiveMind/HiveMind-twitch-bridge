@@ -35,11 +35,12 @@ alice> @bot set a timer for five minutes
 bot>   @alice , Timer set for five minutes.
 ```
 
-Chat lines without a trigger tag are ignored.
+The bridge ignores chat lines without a trigger tag.
 
 ## Standalone Twitch echo bot
 
-The `Twitch` IRC client can be used on its own, without HiveMind, to verify the channel and OAuth token. See `examples/echobot.py`:
+You can use the `Twitch` IRC client on its own, without HiveMind, to verify the
+channel and OAuth token. See `examples/echobot.py`:
 
 ```python
 from twitch_bridge.twitch import Twitch
@@ -55,4 +56,8 @@ twitch = EchoBot("your_channel", "oauth:your_chat_token")
 twitch.listen()
 ```
 
-If the echo bot mirrors chat back, the Twitch half of the configuration is correct and you can move on to wiring the HiveMind half.
+If the echo bot mirrors chat back, the Twitch half of the configuration is
+correct, and you can move on to wiring the HiveMind half.
+
+---
+[← Configuration](configuration.md) · [Home](../readme.md)
